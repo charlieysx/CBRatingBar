@@ -1,10 +1,30 @@
 # CBRatingBar
+[![](https://jitpack.io/v/CB-ysx/CBRatingBar.svg)](https://jitpack.io/#CB-ysx/CBRatingBar)
 
 等级评分控件，支持填充渐变，支持设置颜色、调整大小等，支持监听点击事件
 
 ## gif
 
 ![gif](/raw/ratingbar.gif)
+
+## Gradle
+
+* add jitpack to your project's build.gradle:
+```xml
+    allprojects {
+            repositories {
+                ...
+                maven { url 'https://jitpack.io' }
+            }
+        }
+```
+
+* add the compile statement to your module's build.gradle:
+```xml
+    dependencies {
+        compile 'com.github.CB-ysx:CBRatingBar:1.0.0'
+    }
+```
 
 ## 使用
 
@@ -58,6 +78,8 @@ cbRatingBar.setStarSize(20) //大小
             }
         });
 ```
+
+## License
 
 ```
 Copyright 2017 CodeBear
