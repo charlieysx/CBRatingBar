@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -11,22 +10,7 @@
         android:id="@+id/rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:starSize="20dp"
-        app:starCount="5"
-        app:starSpace="10dp"
-        app:starStrokeWidth="1dp"
-        app:starCanTouch="true"
-        app:starMaxProgress="120"
-        app:starProgress="60"
-        app:starShowStroke="true"
-        app:starUseGradient="true"
-        app:starStartColor="#0000ff"
-        app:starEndColor="#00ff00"
-        app:starCoverColor="#ff0000"
-        app:starFillColor="#666666"
-        app:starPointCount="5"
-        app:starStrokeColor="#0f0f0f"/>
+        android:layout_gravity="center"/>
 
     <View
         android:layout_width="match_parent"

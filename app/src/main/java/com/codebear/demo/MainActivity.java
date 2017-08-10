@@ -8,7 +8,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cb.ratingbar.CBRatingBar;
 
@@ -295,27 +294,5 @@ public class MainActivity extends AppCompatActivity {
         endColor.setEnabled(false);
         coverColor.setEnabled(true);
         strokeColor.setEnabled(true);
-
-        cbRatingBar.setStarSize(20) //大小
-                .setStarCount(5) //数量
-                .setStarSpace(10) //间距
-                .setStarPointCount(5) //角数(n角星)
-                .setShowStroke(true) //是否显示边框
-                .setStarStrokeColor(Color.parseColor("#00ff00")) //边框颜色
-                .setStarStrokeWidth(5) //边框大小
-                .setStarFillColor(Color.parseColor("#00ff00")) //填充的背景颜色
-                .setStarCoverColor(Color.parseColor("#00ff00")) //填充的进度颜色
-                .setStarMaxProgress(120) //最大进度
-                .setStarProgress(50) //当前显示的进度
-                .setUseGradient(true) //是否使用渐变填充（如果使用则coverColor无效）
-                .setStartColor(Color.parseColor("#000000")) //渐变的起点颜色
-                .setEndColor(Color.parseColor("#ffffff")) //渐变的终点颜色
-                .setCanTouch(true) //是否可以点击
-                .setOnStarTouchListener(new CBRatingBar.OnStarTouchListener() { //点击监听
-                    @Override
-                    public void onStarTouch(int touchCount) {
-                        Toast.makeText(MainActivity.this, "点击第" + touchCount + "个星星", Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 }
