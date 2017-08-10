@@ -1,0 +1,321 @@
+package com.codebear.demo;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.cb.ratingbar.CBRatingBar;
+
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity {
+
+    CBRatingBar cbRatingBar;
+    CheckBox cbShowStroke;
+    CheckBox cbUseGradient;
+    CheckBox cbTouch;
+    TextView showTouch;
+    SeekBar progress;
+    SeekBar count;
+    SeekBar space;
+    SeekBar size;
+    SeekBar strokeColor;
+    SeekBar bgColor;
+    SeekBar coverColor;
+    SeekBar startColor;
+    SeekBar endColor;
+    View vStrokeColor;
+    View vBgColor;
+    View vCoverColor;
+    View vStartColor;
+    View vEndColor;
+
+    int[] colors = {Color.YELLOW, Color.RED, Color.BLUE, Color.WHITE, Color.GREEN, Color.CYAN, Color.MAGENTA, Color
+            .DKGRAY, Color.GRAY, Color.LTGRAY, Color.LTGRAY};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findViewById();
+        setListener();
+        random();
+    }
+
+    private void findViewById() {
+        cbRatingBar = (CBRatingBar) findViewById(R.id.rating_bar);
+        cbShowStroke = (CheckBox) findViewById(R.id.cb_show_stroke);
+        cbUseGradient = (CheckBox) findViewById(R.id.cb_use_gradient);
+        cbTouch = (CheckBox) findViewById(R.id.cb_touch);
+        showTouch = (TextView) findViewById(R.id.show_touch);
+        progress = (SeekBar) findViewById(R.id.progress);
+        count = (SeekBar) findViewById(R.id.count);
+        space = (SeekBar) findViewById(R.id.space);
+        size = (SeekBar) findViewById(R.id.size);
+        strokeColor = (SeekBar) findViewById(R.id.stroke_color);
+        bgColor = (SeekBar) findViewById(R.id.bg_color);
+        coverColor = (SeekBar) findViewById(R.id.cover_color);
+        startColor = (SeekBar) findViewById(R.id.start_color);
+        endColor = (SeekBar) findViewById(R.id.end_color);
+        vStrokeColor = findViewById(R.id.v_stroke_color);
+        vBgColor = findViewById(R.id.v_bg_color);
+        vCoverColor = findViewById(R.id.v_cover_color);
+        vStartColor = findViewById(R.id.v_start_color);
+        vEndColor = findViewById(R.id.v_end_color);
+    }
+
+    private void setListener() {
+        cbRatingBar.setOnStarTouchListener(new CBRatingBar.OnStarTouchListener() {
+            @Override
+            public void onStarTouch(int touchCount) {
+                showTouch.setText(touchCount + "个星星被填充");
+            }
+        });
+        cbShowStroke.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                cbRatingBar.setShowStroke(b);
+                strokeColor.setEnabled(b);
+            }
+        });
+        cbUseGradient.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                cbRatingBar.setUseGradient(b);
+                startColor.setEnabled(b);
+                endColor.setEnabled(b);
+                coverColor.setEnabled(!b);
+            }
+        });
+        cbTouch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                cbRatingBar.setCanTouch(b);
+                if (b) {
+                    showTouch.setHint("可点击");
+                } else {
+                    showTouch.setHint("不能点击");
+                }
+                if (!b) {
+                    showTouch.setText("");
+                }
+            }
+        });
+        progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStarProgress(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        count.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStarCount(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        space.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStarSpace(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        size.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStarSize(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        strokeColor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStarStrokeColor(colors[i]);
+                vStrokeColor.setBackgroundColor(colors[i]);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        bgColor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStarFillColor(colors[i]);
+                vBgColor.setBackgroundColor(colors[i]);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        coverColor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStarCoverColor(colors[i]);
+                vCoverColor.setBackgroundColor(colors[i]);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        startColor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setStartColor(colors[i]);
+                vStartColor.setBackgroundColor(colors[i]);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        endColor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                cbRatingBar.setEndColor(colors[i]);
+                vEndColor.setBackgroundColor(colors[i]);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+    private void random() {
+
+        Random random = new Random();
+        int i = random.nextInt(progress.getMax());
+        progress.setProgress(i + 1);
+
+        i = random.nextInt(count.getMax());
+        count.setProgress(i + 1);
+
+        i = random.nextInt(space.getMax());
+        space.setProgress(i + 1);
+
+        i = random.nextInt(size.getMax());
+        size.setProgress(i + 1);
+
+        i = random.nextInt(strokeColor.getMax());
+        strokeColor.setProgress(i + 1);
+
+        i = random.nextInt(bgColor.getMax());
+        bgColor.setProgress(i + 1);
+
+        i = random.nextInt(coverColor.getMax());
+        coverColor.setProgress(i + 1);
+
+        i = random.nextInt(startColor.getMax());
+        startColor.setProgress(i + 1);
+
+        i = random.nextInt(endColor.getMax());
+        endColor.setProgress(i + 1);
+
+        cbShowStroke.setChecked(true);
+        cbUseGradient.setChecked(false);
+        cbTouch.setChecked(false);
+        startColor.setEnabled(false);
+        endColor.setEnabled(false);
+        coverColor.setEnabled(true);
+        strokeColor.setEnabled(true);
+
+        cbRatingBar.setStarSize(20) //大小
+                .setStarCount(5) //数量
+                .setStarSpace(10) //间距
+                .setStarPointCount(5) //角数(n角星)
+                .setShowStroke(true) //是否显示边框
+                .setStarStrokeColor(Color.parseColor("#00ff00")) //边框颜色
+                .setStarStrokeWidth(5) //边框大小
+                .setStarFillColor(Color.parseColor("#00ff00")) //填充的背景颜色
+                .setStarCoverColor(Color.parseColor("#00ff00")) //填充的进度颜色
+                .setStarMaxProgress(120) //最大进度
+                .setStarProgress(50) //当前显示的进度
+                .setUseGradient(true) //是否使用渐变填充（如果使用则coverColor无效）
+                .setStartColor(Color.parseColor("#000000")) //渐变的起点颜色
+                .setEndColor(Color.parseColor("#ffffff")) //渐变的终点颜色
+                .setCanTouch(true) //是否可以点击
+                .setOnStarTouchListener(new CBRatingBar.OnStarTouchListener() { //点击监听
+                    @Override
+                    public void onStarTouch(int touchCount) {
+                        Toast.makeText(MainActivity.this, "点击第" + touchCount + "个星星", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+}

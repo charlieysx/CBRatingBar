@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CBRatingBar">
+        <attr name="starSize" format="dimension|reference"/>
+        <attr name="starPointCount" format="integer"/>
+        <attr name="starCount" format="integer"/>
+        <attr name="starSpace" format="dimension|reference"/>
+        <attr name="starMaxProgress" format="float"/>
+        <attr name="starProgress" format="float"/>
+        <attr name="starStrokeWidth" format="dimension|reference"/>
+        <attr name="starShowStroke" format="boolean"/>
+        <attr name="starStrokeColor" format="color|reference"/>
+        <attr name="starFillColor" format="color|reference"/>
+        <attr name="starCoverColor" format="color|reference"/>
+        <attr name="starCanTouch" format="boolean"/>
+        <attr name="starUseGradient" format="boolean"/>
+        <attr name="starStartColor" format="color|reference"/>
+        <attr name="starEndColor" format="color|reference"/>
+    </declare-styleable>
+</resources>
