@@ -6,6 +6,8 @@
 ## gif
 
 ![gif](/raw/ratingbar.gif)
+![gif](/raw/ratingbar1.gif)
+![gif](/raw/ratingbar2.gif)
 
 ## Gradle
 
@@ -22,7 +24,7 @@
 * add the compile statement to your module's build.gradle:
 ```xml
     dependencies {
-        compile 'com.github.CB-ysx:CBRatingBar:1.0.0'
+        compile 'com.github.CB-ysx:CBRatingBar:2.0.0'
     }
 ```
 
@@ -52,7 +54,9 @@
         app:starCoverColor="#ff0000"
         app:starFillColor="#666666"
         app:starPointCount="5"
-        app:starStrokeColor="#0f0f0f"/>
+        app:starStrokeColor="#0f0f0f"
+        app:pathData="@string/bird"
+        app:pathDataId="@string/bird"/>
 ```
 * java
 ```java
@@ -71,6 +75,10 @@ cbRatingBar.setStarSize(20) //大小
         .setStartColor(Color.parseColor("#000000")) //渐变的起点颜色
         .setEndColor(Color.parseColor("#ffffff")) //渐变的终点颜色
         .setCanTouch(true) //是否可以点击
+        .setPathData(getResources().getString(R.string.pig))//传入path的数据
+        .setPathDataId(R.string.pig)//传入path数据id
+        .setDefaultPath()//设置使用默认path
+        .setPath(path)//传入path
         .setOnStarTouchListener(new CBRatingBar.OnStarTouchListener() { //点击监听
             @Override
             public void onStarTouch(int touchCount) {

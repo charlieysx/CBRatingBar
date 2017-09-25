@@ -579,7 +579,7 @@ public class CBRatingBar extends View {
         return this;
     }
 
-    public CBRatingBar setmPath(Path mPath) {
+    public CBRatingBar setPath(Path mPath) {
         this.mPath = mPath;
         reDraw(false);
 
