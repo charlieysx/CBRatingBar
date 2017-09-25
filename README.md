@@ -86,6 +86,10 @@ cbRatingBar.setStarSize(20) //大小
         });
 ```
 
+## 感谢
+
+> 解析svg数据转为path，用了[RichPath][1]中的两个类，感谢[tarek360][2]
+
 ## License
 
 ```
@@ -103,3 +107,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+
+  [1]: https://github.com/tarek360/RichPath
+  [2]: https://github.com/tarek360
