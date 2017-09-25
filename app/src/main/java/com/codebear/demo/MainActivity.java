@@ -2,10 +2,12 @@ package com.codebear.demo;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox cbShowStroke;
     CheckBox cbUseGradient;
     CheckBox cbTouch;
+    RadioGroup rgPath;
     TextView showTouch;
     SeekBar progress;
     SeekBar count;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         cbShowStroke = (CheckBox) findViewById(R.id.cb_show_stroke);
         cbUseGradient = (CheckBox) findViewById(R.id.cb_use_gradient);
         cbTouch = (CheckBox) findViewById(R.id.cb_touch);
+        rgPath = (RadioGroup) findViewById(R.id.rg_path);
         showTouch = (TextView) findViewById(R.id.show_touch);
         progress = (SeekBar) findViewById(R.id.progress);
         count = (SeekBar) findViewById(R.id.count);
@@ -103,6 +107,28 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (!b) {
                     showTouch.setText("");
+                }
+            }
+        });
+        rgPath.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                switch (i) {
+                    case R.id.rb_use_def0:
+                        cbRatingBar.setDefaultPath();
+                        break;
+                    case R.id.rb_use_def1:
+                        cbRatingBar.setPathDataId(R.string.round_star);
+                        break;
+                    case R.id.rb_use_def2:
+                        cbRatingBar.setPathDataId(R.string.heart);
+                        break;
+                    case R.id.rb_use_def3:
+                        cbRatingBar.setPathDataId(R.string.bird);
+                        break;
+                    case R.id.rb_use_def4:
+                        cbRatingBar.setPathDataId(R.string.pig);
+                        break;
                 }
             }
         });

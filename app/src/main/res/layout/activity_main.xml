@@ -4,19 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="5dp">
 
     <com.cb.ratingbar.CBRatingBar
         android:id="@+id/rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="#666666"/>
 
     <android.support.v4.widget.NestedScrollView
@@ -70,6 +71,54 @@
                     android:layout_weight="1"
                     android:hint="不能点击"/>
             </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/rg_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_use_def0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:gravity="center_vertical"
+                    android:text="default"/>
+
+                <RadioButton
+                    android:id="@+id/rb_use_def1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="round"/>
+
+                <RadioButton
+                    android:id="@+id/rb_use_def2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="heart"/>
+
+                <RadioButton
+                    android:id="@+id/rb_use_def3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="bird"/>
+
+                <RadioButton
+                    android:id="@+id/rb_use_def4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="pig"/>
+            </RadioGroup>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -266,7 +315,6 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="10dp">
-
 
                 <View
                     android:id="@+id/v_end_color"

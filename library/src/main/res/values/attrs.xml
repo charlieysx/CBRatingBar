@@ -17,5 +17,7 @@
         <attr name="starUseGradient" format="boolean"/>
         <attr name="starStartColor" format="color|reference"/>
         <attr name="starEndColor" format="color|reference"/>
+        <attr name="starPathData" format="string|reference"/>
+        <attr name="starPathDataId" format="reference"/>
     </declare-styleable>
 </resources>
