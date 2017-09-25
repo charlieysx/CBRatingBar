@@ -5,7 +5,6 @@
 
 ## gif
 
-![gif](/raw/ratingbar.gif)
 ![gif](/raw/ratingbar1.gif)
 ![gif](/raw/ratingbar2.gif)
 
