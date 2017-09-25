@@ -23,7 +23,7 @@
 * add the compile statement to your module's build.gradle:
 ```xml
     dependencies {
-        compile 'com.github.CB-ysx:CBRatingBar:2.0.0'
+        compile 'com.github.CB-ysx:CBRatingBar:2.0.1'
     }
 ```
 
@@ -85,6 +85,9 @@ cbRatingBar.setStarSize(20) //大小
             }
         });
 ```
+
+## 说明
+pathData为svg文件中的path数据
 
 ## 感谢
 

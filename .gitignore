@@ -40,3 +40,12 @@ captures/
 
 # Keystore files
 *.jks
+
+app/.project
+.project
+.settings/org.eclipse.buildship.core.prefs
+app/.classpath
+app/.settings/org.eclipse.buildship.core.prefs
+library/.classpath
+library/.project
+library/.settings/org.eclipse.buildship.core.prefs
