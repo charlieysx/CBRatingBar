@@ -287,6 +287,7 @@ public class CBRatingBar extends View {
                 canvas.drawPath(path, paint);
                 x += (starSize + starSpace);
             }
+
             canvas.rotate(90);
             canvas.translate(-dx, -dy);
         } else {
@@ -588,6 +589,7 @@ public class CBRatingBar extends View {
 
     public CBRatingBar setPathData(String pathData) {
         this.pathData = pathData;
+        pathDataId = -1;
         initPath();
         reDraw(false);
 
@@ -596,6 +598,7 @@ public class CBRatingBar extends View {
 
     public CBRatingBar setPathDataId(int pathDataId) {
         this.pathDataId = pathDataId;
+        pathData = null;
         initPath();
         reDraw(false);
 
