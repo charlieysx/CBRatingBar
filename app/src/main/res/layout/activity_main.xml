@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="round"/>
+                    android:text="heart"/>
 
                 <RadioButton
                     android:id="@+id/rb_use_def2"
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="heart"/>
+                    android:text="bird"/>
 
                 <RadioButton
                     android:id="@+id/rb_use_def3"
@@ -109,15 +109,47 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="bird"/>
+                    android:text="pig"/>
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/rg_dir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rb_use_def4"
+                    android:id="@+id/rb_dir0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:gravity="center_vertical"
+                    android:text="→"/>
+
+                <RadioButton
+                    android:id="@+id/rb_dir1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="pig"/>
+                    android:text="←"/>
+
+                <RadioButton
+                    android:id="@+id/rb_dir2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="↓"/>
+
+                <RadioButton
+                    android:id="@+id/rb_dir3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="↑"/>
             </RadioGroup>
 
             <LinearLayout
