@@ -23,7 +23,7 @@
 * add the compile statement to your module's build.gradle:
 ```xml
     dependencies {
-        compile 'com.github.CB-ysx:CBRatingBar:2.0.1'
+        compile 'com.github.CB-ysx:CBRatingBar:3.0.0'
     }
 ```
 
@@ -55,14 +55,14 @@
         app:starPointCount="5"
         app:starStrokeColor="#0f0f0f"
         app:pathData="@string/bird"
-        app:pathDataId="@string/bird"/>
+        app:pathDataId="@string/bird"
+        app:starCoverDir="top_to_bottom"/>
 ```
 * java
 ```java
 cbRatingBar.setStarSize(20) //大小
         .setStarCount(5) //数量
         .setStarSpace(10) //间距
-        .setStarPointCount(5) //角数(n角星)
         .setShowStroke(true) //是否显示边框
         .setStarStrokeColor(Color.parseColor("#00ff00")) //边框颜色
         .setStarStrokeWidth(5) //边框大小
@@ -74,10 +74,11 @@ cbRatingBar.setStarSize(20) //大小
         .setStartColor(Color.parseColor("#000000")) //渐变的起点颜色
         .setEndColor(Color.parseColor("#ffffff")) //渐变的终点颜色
         .setCanTouch(true) //是否可以点击
-        .setPathData(getResources().getString(R.string.pig))//传入path的数据
-        .setPathDataId(R.string.pig)//传入path数据id
-        .setDefaultPath()//设置使用默认path
-        .setPath(path)//传入path
+        .setPathData(getResources().getString(R.string.pig)) //传入path的数据
+        .setPathDataId(R.string.pig) //传入path数据id
+        .setDefaultPath() //设置使用默认path
+        .setPath(path) //传入path
+        .setCoverDir(CBRatingBar.CoverDir.topToBottom) //设置进度覆盖的方向
         .setOnStarTouchListener(new CBRatingBar.OnStarTouchListener() { //点击监听
             @Override
             public void onStarTouch(int touchCount) {

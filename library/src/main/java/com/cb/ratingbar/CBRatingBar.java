@@ -36,7 +36,6 @@ public class CBRatingBar extends View {
      * 一些默认的数值
      */
     private static final int DEFAULT_STAR_SIZE = 20;
-    private static final int DEFAULT_STAR_POINT_COUNT = 5;
     private static final int DEFAULT_STAR_COUNT = 1;
     private static final int DEFAULT_STAR_SPACE = 0;
     private static final int DEFAULT_STAR_STROKE_WIDTH = 1;
@@ -50,7 +49,14 @@ public class CBRatingBar extends View {
     private static final int DEFAULT_STAR_START_COLOR = Color.YELLOW;
     private static final int DEFAULT_STAR_END_COLOR = Color.RED;
     private static final boolean DEFAULT_STAR_CAN_TOUCH = false;
-    private static final int DEFAULT_STAR_PATH_DATA_ID = -1;
+    private static final int DEFAULT_STAR_PATH_DATA_ID = R.string.round_star;
+
+    public final class CoverDir {
+        public final static int leftToRight = 0;
+        public final static int rightToLeft = 1;
+        public final static int topToBottom = 2;
+        public final static int bottomToTop = 3;
+    }
 
     /**
      * 画星星边框的画笔
@@ -73,10 +79,6 @@ public class CBRatingBar extends View {
      * 一个星星的宽度(宽高一样)
      */
     private int starSize;
-    /**
-     * 星星的点数，也就是星星的角数
-     */
-    private int starPointCount;
     /**
      * 星星的个数
      */
@@ -149,7 +151,10 @@ public class CBRatingBar extends View {
     @StringRes
     int pathDataId;
 
-    private boolean isSelfPath = false;
+    /**
+     * 进度填充方向
+     */
+    private int coverDir;
 
     public CBRatingBar(Context context) {
         this(context, null);
@@ -182,7 +187,6 @@ public class CBRatingBar extends View {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CBRatingBar);
 
         starSize = array.getDimensionPixelOffset(R.styleable.CBRatingBar_starSize, DEFAULT_STAR_SIZE);
-        starPointCount = array.getInteger(R.styleable.CBRatingBar_starPointCount, DEFAULT_STAR_POINT_COUNT);
         starCount = array.getInteger(R.styleable.CBRatingBar_starCount, DEFAULT_STAR_COUNT);
         starSpace = array.getDimensionPixelOffset(R.styleable.CBRatingBar_starSpace, DEFAULT_STAR_SPACE);
         starStrokeWidth = array.getDimensionPixelOffset(R.styleable.CBRatingBar_starStrokeWidth,
@@ -199,6 +203,7 @@ public class CBRatingBar extends View {
         canTouch = array.getBoolean(R.styleable.CBRatingBar_starCanTouch, DEFAULT_STAR_CAN_TOUCH);
         pathData = array.getString(R.styleable.CBRatingBar_starPathData);
         pathDataId = array.getResourceId(R.styleable.CBRatingBar_starPathDataId, DEFAULT_STAR_PATH_DATA_ID);
+        coverDir = array.getInteger(R.styleable.CBRatingBar_starCoverDir, CoverDir.leftToRight);
 
         starProgress = Math.max(starProgress, 0);
         starProgress = Math.min(starProgress, starMaxProgress);
@@ -232,10 +237,13 @@ public class CBRatingBar extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float dx = (float) (width * starProgress * 1.0 / starMaxProgress);
+        float coverSize = (float) (width * starProgress * 1.0 / starMaxProgress);
+        if (coverDir == CoverDir.topToBottom || coverDir == CoverDir.bottomToTop) {
+            coverSize = (float) (starSize * starProgress * 1.0 / starMaxProgress);
+        }
 
         //将已经填充了颜色的星星绘制到画布上
-        canvas.drawBitmap(getCoverStarBitmap(dx), 0, 0, null);
+        canvas.drawBitmap(getCoverStarBitmap(coverSize), 0, 0, null);
         if (showStroke) {
             //给星星添加边框
             drawStar(canvas, starStrokePaint);
@@ -245,11 +253,11 @@ public class CBRatingBar extends View {
     /**
      * 获取已经绘制了进度的星星的bitmap对象
      *
-     * @param dx 进度
+     * @param coverSize 覆盖的大小
      *
      * @return
      */
-    private Bitmap getCoverStarBitmap(float dx) {
+    private Bitmap getCoverStarBitmap(float coverSize) {
         //将星星绘制到star上
         Bitmap star = Bitmap.createBitmap(width, starSize, Bitmap.Config.ARGB_8888);
         Canvas starCanvas = new Canvas(star);
@@ -259,8 +267,40 @@ public class CBRatingBar extends View {
         Bitmap finalStar = Bitmap.createBitmap(width, starSize, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(finalStar);
         canvas.save();
-        canvas.clipRect(0, 0, dx, starSize);
-        canvas.drawRect(0, 0, width, starSize, starCoverPaint);
+
+        float left = 0;
+        float right = 0;
+        float top = 0;
+        float bottom = 0;
+
+        switch (coverDir) {
+            case CoverDir.leftToRight:
+                left = 0;
+                top = 0;
+                right = coverSize;
+                bottom = starSize;
+                break;
+            case CoverDir.rightToLeft:
+                left = width - coverSize;
+                top = 0;
+                right = width;
+                bottom = starSize;
+                break;
+            case CoverDir.topToBottom:
+                left = 0;
+                top = 0;
+                right = width;
+                bottom = coverSize;
+                break;
+            case CoverDir.bottomToTop:
+                left = 0;
+                top = starSize - coverSize;
+                right = width;
+                bottom = starSize;
+                break;
+        }
+        canvas.clipRect(left, top, right, bottom);
+        canvas.drawRect(left, top, right, bottom, starCoverPaint);
         canvas.restore();
 
         canvas.drawBitmap(star, 0, 0, starPaint);
@@ -275,27 +315,11 @@ public class CBRatingBar extends View {
      * @param paint  画笔
      */
     private void drawStar(Canvas canvas, Paint paint) {
-        float dx = starSize / 2;
-        float dy = starSize / 2;
-        if (!isSelfPath) {
-            canvas.translate(dx, dy);
-            canvas.rotate(-90);
-
-            int x = 0;
-            for (int i = 0; i < starCount; ++i) {
-                Path path = getStarPath(x);
-                canvas.drawPath(path, paint);
-                x += (starSize + starSpace);
-            }
-            canvas.rotate(90);
-            canvas.translate(-dx, -dy);
-        } else {
-            int x = 0;
-            for (int i = 0; i < starCount; ++i) {
-                Path path = getOffsetPath(x);
-                canvas.drawPath(path, paint);
-                x += (starSize + starSpace);
-            }
+        int x = 0;
+        for (int i = 0; i < starCount; ++i) {
+            Path path = getOffsetPath(x);
+            canvas.drawPath(path, paint);
+            x += (starSize + starSpace);
         }
     }
 
@@ -317,54 +341,18 @@ public class CBRatingBar extends View {
     }
 
     /**
-     * 获取星星的path
-     *
-     * @return
-     */
-    private Path getStarPath(int dx) {
-        Path path = new Path();
-        float radius;
-        if (starPointCount % 2 == 0) {
-            radius = starSize * (cos(360.0 / starPointCount / 2) / 2 - sin(360.0 / starPointCount / 2) * sin(90 -
-                    360.0 / starPointCount) / cos(90 - 360.0 / starPointCount));
-        } else {
-            radius = starSize * sin(360.0 / starPointCount / 4) / 2 / sin(180 - 360.0 / starPointCount / 2 - 360.0 /
-                    starPointCount / 4);
-        }
-        for (int i = 0; i < starPointCount; ++i) {
-            if (i == 0) {
-                path.moveTo(starSize * cos(360 / starPointCount * i) / 2, starSize * sin(360 / starPointCount * i) /
-                        2 + dx);
-            } else {
-                path.lineTo(starSize * cos(360.0 / starPointCount * i) / 2, starSize * sin(360.0 / starPointCount *
-                        i) / 2 + dx);
-            }
-            path.lineTo(radius * cos(360.0 / starPointCount * i + 360.0 / starPointCount / 2), radius * sin(360.0 /
-                    starPointCount * i + 360.0 / starPointCount / 2) + dx);
-        }
-        path.close();
-
-        return path;
-    }
-
-    /**
      * 初始化path
      *
      * @return
      */
     private void initPath() {
+        if (pathDataId != -1) {
+            pathData = getResources().getString(pathDataId);
+        }
         if (pathData != null && !"".equals(pathData.trim().replace(" ", ""))) {
             mPath = PathParserCompat.createPathFromPathData(pathData);
-            isSelfPath = true;
-        } else if (pathDataId != -1) {
-            mPath = PathParserCompat.createPathFromPathData(getResources().getString(pathDataId));
-            isSelfPath = true;
-        } else {
-            isSelfPath = false;
         }
-        if (isSelfPath) {
-            resizePath(mPath, starSize, starSize);
-        }
+        resizePath(mPath, starSize, starSize);
     }
 
     public void resizePath(Path path, float width, float height) {
@@ -374,14 +362,6 @@ public class CBRatingBar extends View {
         Matrix resizeMatrix = new Matrix();
         resizeMatrix.setRectToRect(src, bounds, Matrix.ScaleToFit.FILL);
         path.transform(resizeMatrix);
-    }
-
-    private float sin(double num) {
-        return (float) Math.sin(num * Math.PI / 180);
-    }
-
-    private float cos(double num) {
-        return (float) Math.cos(num * Math.PI / 180);
     }
 
     @Override
@@ -427,7 +407,7 @@ public class CBRatingBar extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (canTouch) {
+        if (canTouch && (coverDir == CoverDir.leftToRight || coverDir == CoverDir.rightToLeft)) {
             checkTouch(new PointF(event.getX(), event.getY()));
         }
         return super.onTouchEvent(event);
@@ -444,6 +424,9 @@ public class CBRatingBar extends View {
         }
         if (nowTouchCount > 0) {
             touchCount = nowTouchCount;
+            if (coverDir == CoverDir.rightToLeft) {
+                touchCount = starCount - touchCount + 1;
+            }
             setStarProgress(starMaxProgress / starCount * touchCount);
             if (onStarTouchListener != null) {
                 onStarTouchListener.onStarTouch(touchCount);
@@ -469,15 +452,6 @@ public class CBRatingBar extends View {
         }
         this.starSize = starSize;
         resizePath(mPath, starSize, starSize);
-        reDraw(true);
-        return this;
-    }
-
-    public CBRatingBar setStarPointCount(int starPointCount) {
-        if (starPointCount < 3) {
-            starPointCount = DEFAULT_STAR_POINT_COUNT;
-        }
-        this.starPointCount = starPointCount;
         reDraw(true);
         return this;
     }
@@ -588,6 +562,7 @@ public class CBRatingBar extends View {
 
     public CBRatingBar setPathData(String pathData) {
         this.pathData = pathData;
+        this.pathDataId = -1;
         initPath();
         reDraw(false);
 
@@ -602,8 +577,15 @@ public class CBRatingBar extends View {
         return this;
     }
 
-    public CBRatingBar setDefaultPath() {
-        isSelfPath = false;
+    public CBRatingBar setDefaultPathData() {
+        return this.setPathDataId(DEFAULT_STAR_PATH_DATA_ID);
+    }
+
+    public CBRatingBar setCoverDir(int coverDir) {
+        if (coverDir < 0 || coverDir > 3) {
+            coverDir = 0;
+        }
+        this.coverDir = coverDir;
         reDraw(false);
 
         return this;
@@ -611,10 +593,6 @@ public class CBRatingBar extends View {
 
     public int getStarSize() {
         return starSize;
-    }
-
-    public int getStarPointCount() {
-        return starPointCount;
     }
 
     public int getStarCount() {
@@ -685,7 +663,7 @@ public class CBRatingBar extends View {
         return pathDataId;
     }
 
-    public boolean isSelfPath() {
-        return isSelfPath;
+    public int getCoverDir() {
+        return coverDir;
     }
 }
