@@ -3,7 +3,6 @@
 
     <declare-styleable name="CBRatingBar">
         <attr name="starSize" format="dimension|reference"/>
-        <attr name="starPointCount" format="integer"/>
         <attr name="starCount" format="integer"/>
         <attr name="starSpace" format="dimension|reference"/>
         <attr name="starMaxProgress" format="float"/>
@@ -19,5 +18,11 @@
         <attr name="starEndColor" format="color|reference"/>
         <attr name="starPathData" format="string|reference"/>
         <attr name="starPathDataId" format="reference"/>
+        <attr name="starCoverDir">
+            <enum name="left_to_right" value="0" />
+            <enum name="right_to_left" value="1" />
+            <enum name="top_to_bottom" value="2" />
+            <enum name="bottom_to_top" value="3" />
+        </attr>
     </declare-styleable>
 </resources>
