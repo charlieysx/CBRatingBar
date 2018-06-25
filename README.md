@@ -67,7 +67,7 @@ cbRatingBar.setStarSize(20) //大小
         .setStarStrokeColor(Color.parseColor("#00ff00")) //边框颜色
         .setStarStrokeWidth(5) //边框大小
         .setStarFillColor(Color.parseColor("#00ff00")) //填充的背景颜色
-        .setStarCoverColor(Color.parseColor("#00ff00")) //填充的进度颜色
+        .setStarCoverColor(Color.parseColor("#ffffff")) //填充的进度颜色
         .setStarMaxProgress(120) //最大进度
         .setStarProgress(50) //当前显示的进度
         .setUseGradient(true) //是否使用渐变填充（如果使用则coverColor无效）
