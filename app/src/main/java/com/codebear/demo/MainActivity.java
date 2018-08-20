@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         cbRatingBar.setPathDataId(R.string.bird);
                         break;
                     case R.id.rb_use_def3:
-                        cbRatingBar.setPathData(getResources().getString(R.string.pig));
+                        cbRatingBar.setPathData(getResources().getString(R.string.wechat));
                         break;
                 }
             }

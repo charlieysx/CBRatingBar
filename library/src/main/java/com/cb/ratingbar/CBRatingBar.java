@@ -229,7 +229,38 @@ public class CBRatingBar extends View {
         if (!useGradient) {
             starCoverPaint.setColor(starCoverColor);
         } else {
-            starCoverPaint.setShader(new LinearGradient(0, 0, width, 0, startColor, endColor, Shader.TileMode.CLAMP));
+            float x0 = 0;
+            float y0 = 0;
+            float x1 = 0;
+            float y1 = 0;
+
+            switch (coverDir) {
+                case CoverDir.leftToRight:
+                    x0 = 0;
+                    y0 = 0;
+                    x1 = width;
+                    y1 = 0;
+                    break;
+                case CoverDir.rightToLeft:
+                    x0 = width;
+                    y0 = 0;
+                    x1 = 0;
+                    y1 = 0;
+                    break;
+                case CoverDir.topToBottom:
+                    x0 = 0;
+                    y0 = 0;
+                    x1 = 0;
+                    y1 = starSize;
+                    break;
+                case CoverDir.bottomToTop:
+                    x0 = 0;
+                    y0 = starSize;
+                    x1 = 0;
+                    y1 = 0;
+                    break;
+            }
+            starCoverPaint.setShader(new LinearGradient(x0, y0, x1, y1, startColor, endColor, Shader.TileMode.CLAMP));
         }
     }
 
@@ -587,6 +618,9 @@ public class CBRatingBar extends View {
             coverDir = 0;
         }
         this.coverDir = coverDir;
+        if (useGradient) {
+            setupCoverPaint();
+        }
         reDraw(false);
 
         return this;

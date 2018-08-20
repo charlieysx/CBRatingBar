@@ -7,6 +7,11 @@
 
 ![gif](/raw/ratingbar1.gif)
 ![gif](/raw/ratingbar2.gif)
+![gif](/raw/ratingbar3.gif)
+
+## 更新记录
+
+[所有版本更新信息](/UPDATE.md)
 
 ## Gradle
 
@@ -23,7 +28,7 @@
 * add the compile statement to your module's build.gradle:
 ```xml
     dependencies {
-        compile 'com.github.CB-ysx:CBRatingBar:3.0.0'
+        compile 'com.github.CB-ysx:CBRatingBar:3.0.1'
     }
 ```
 
