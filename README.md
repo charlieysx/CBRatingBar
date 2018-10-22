@@ -3,6 +3,8 @@
 
 等级评分控件，支持填充渐变，支持设置颜色、调整大小等，支持监听点击事件
 
+## 本人已转前端开发，不再维护这个库了..
+
 ## gif
 
 ![gif](/raw/ratingbar1.gif)
@@ -59,8 +61,8 @@
         app:starFillColor="#666666"
         app:starPointCount="5"
         app:starStrokeColor="#0f0f0f"
-        app:pathData="@string/bird"
-        app:pathDataId="@string/bird"
+        app:starPathData="@string/bird"
+        app:starPathDataId="@string/bird"
         app:starCoverDir="top_to_bottom"/>
 ```
 * java
